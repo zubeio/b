@@ -191,7 +191,7 @@ _.extend(Sync.prototype, {
   // Issues an `insert` command on the query - only used by models.
   insert: Promise.method(function() {
     const syncing = this.syncing;
-    return this.query.insert(syncing.format(_.extend(Object.create(null), syncing.attributes)), syncing.idAttribute);
+    return this.query.insert(syncing.format(_.extend(Object.create(null), syncing.attributes)), '*'); // zube mod, return '*'
   }),
 
   // Issues an `update` command on the query - only used by models.
@@ -201,7 +201,7 @@ _.extend(Sync.prototype, {
     if (_.filter(query._statements, {grouping: 'where'}).length === 0) {
       throw new Error('A model cannot be updated without a "where" clause or an idAttribute.');
     }
-    return query.update(syncing.format(_.extend(Object.create(null), attrs)));
+    return query.update(syncing.format(_.extend(Object.create(null), attrs)), '*'); // zube mod, return '*'
   }),
 
   // Issues a `delete` command on the query.

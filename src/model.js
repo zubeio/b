@@ -976,15 +976,20 @@ const BookshelfModel = ModelBase.extend({
       .then(function(resp) {
 
         // After a successful database save, the id is updated if the model was created
-        if (method === 'insert' && this.id == null) {
-          const updatedCols = {};
-          updatedCols[this.idAttribute] = this.id = resp[0];
-          const updatedAttrs = this.parse(updatedCols);
-          _.assign(this.attributes, updatedAttrs);
-        } else if (method === 'update' && resp === 0) {
+
+        // zube modifications. This allows us to return the full model attrs on save and update since we're using postgres.
+
+        if (method === 'update' && resp === 0) {
           if (options.require !== false) {
             throw new this.constructor.NoRowsUpdatedError('No Rows Updated');
           }
+        } else {
+          const returningAttrs = resp[0];
+          const updatedCols = {};
+          updatedCols[this.idAttribute] = this.id = returningAttrs.id;
+          delete returningAttrs.id;
+          const updatedAttrs = this.parse(updatedCols);
+          _.assign(this.attributes, updatedAttrs);
         }
 
         // In case we need to reference the `previousAttributes` for the this
