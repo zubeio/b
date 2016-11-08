@@ -984,10 +984,10 @@ const BookshelfModel = ModelBase.extend({
             throw new this.constructor.NoRowsUpdatedError('No Rows Updated');
           }
         } else {
-          const returningAttrs = resp[0];
-          const updatedCols = {};
-          updatedCols[this.idAttribute] = this.id = returningAttrs.id;
-          delete returningAttrs.id;
+          const updatedCols = resp[0];
+          const idAttribute = updatedCols.id;
+          delete updatedCols.id;
+          updatedCols[this.idAttribute] = this.id = idAttribute;
           const updatedAttrs = this.parse(updatedCols);
           _.assign(this.attributes, updatedAttrs);
         }
