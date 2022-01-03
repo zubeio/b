@@ -29,7 +29,7 @@
     "active record"
   ],
   "dependencies": {
-    "babel-runtime": "^7.0.0",
+    "babel-runtime": "^6.26.0",
     "bluebird": "^3.4.3",
     "chalk": "^1.0.0",
     "create-error": "~0.3.1",
