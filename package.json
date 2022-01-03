@@ -11,7 +11,7 @@
     "cover": "npm run lint && istanbul cover _mocha -- --check-leaks -t 5000 -b -R spec test/index.js",
     "test": "npm run lint &&  mocha --check-leaks -t 5000 -b test/index.js",
     "jsdoc": "./scripts/jsdoc.sh",
-    "gh-pages": "./scripts/gh-pages.sh",
+    "gh-pages": "./scripts/gh-pages.sh"
   },
   "homepage": "http://bookshelfjs.org",
   "repository": {
